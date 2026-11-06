@@ -31,7 +31,7 @@ mkdir -p ~/.claude/skills
 cp -r schematic-figure/.claude/skills/* ~/.claude/skills/
 ```
 
-You can also ask your agent to install it. In Codex, name the path of `SKILL.md` in your prompt. The skill needs Node.js 22 or later and a Chromium browser. Blender and RDKit are optional, for 3D renders and molecules.
+You can also ask your agent to install it. In Codex, name the path of `SKILL.md` in your prompt. The skill needs Node.js 22 or later and a Chromium browser. Blender, [vork](https://github.com/voyager-so/vork), and RDKit are optional. Blender is for constructive solid geometry, volumes, and photoreal glass. vork is for large ensembles, GPU shaders, and animated 3D figures. RDKit is for molecules.
 
 ## Use
 
@@ -50,7 +50,7 @@ Tips to use the skill in practice, from our own use:
   > "Use the schematic-figure skill. Make three different designs of this figure with three parallel agents for our paper [attach technical description] and combine them in a single sheet to show me."
 
 - **Steer it with a few words.** The skill picks a look and an effort level for you, and says what it picked. You can set them yourself:
-  - **Look:** say "flat" for a clean 2D diagram. Say "in 3D" for the skill's own vector 3D. Say "render it in Blender" for a rendered 3D object (this needs Blender installed). Say "photoreal" for a Blender render with photographic materials such as glass and metal.
+  - **Look:** say "flat" for a clean 2D diagram. Say "in 3D" for the skill's own vector 3D. Say "render in vork" for a large ensemble, a physical GPU shader, fast 3D staging, or an animated figure (this needs [vork](https://github.com/voyager-so/vork)). Say "render it in Blender" for booleans, fog, or a rendered solid (this needs Blender installed). Say "photoreal" for a Blender render with photographic materials such as glass and metal.
   - **Size:** say "Width 89 mm" for a one-column journal figure, or "Width 183 mm" for two columns.
   - **Depth:** this is how much checking the agent does. "draft" is one quick pass with automatic checks, so you get a first look sooner and cheaper. "standard" adds a check of every count, direction and connection against your description, and a cold read of the result. The default, "full", also draws two versions, keeps the better one, and reviews it for errors.
 

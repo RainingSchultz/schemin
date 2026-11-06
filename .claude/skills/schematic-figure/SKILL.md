@@ -1,6 +1,6 @@
 ---
 name: schematic-figure
-description: Draw a publication-quality scientific schematic, slide or poster figure (setup, concept, mechanism or overview figure, Nature style) as vector SVG/PDF/PNG from code, optionally with Blender-rendered 3D elements under vector labels. Use when asked to draw, redraw, replicate, revise or design a schematic or concept figure for a paper, talk or proposal, from a reference figure, a written description, or a research note. Options (all optional) - mode, style, route (flat, vector3d, blender), depth (draft, standard, full), web (on, off).
+description: Draw a publication-quality scientific schematic, slide or poster figure (setup, concept, mechanism or overview figure, Nature style) as vector SVG/PDF/PNG from code, optionally with Blender-rendered 3D elements or a vork GPU shader under vector labels. Use when asked to draw, redraw, replicate, revise or design a schematic or concept figure for a paper, talk or proposal, from a reference figure, a written description, or a research note. Options (all optional) - mode, style, route (flat, vector3d, vork, blender), depth (draft, standard, full), web (on, off).
 ---
 
 # Schematic figure
@@ -17,10 +17,25 @@ The user may give any of these. Infer the rest (step 0).
 |---|---|---|
 | mode | design, replicate, describe, revise | from the request: a reference image is replicate, a description with no image is describe, an existing figure with changes is revise, else design |
 | style | a style the user names, or a reference figure the user gives | your own choice for the purpose and the field |
-| route | flat (2D, illustrated finish), vector3d (library 3D parts, `L.lightScene3`), blender (illustration-mode or photographic render; "photoreal" or "photographic" means the photographic one, step 0) | for a physical object, the route that suits the hero; say why in the Assumptions line (step 0) |
+| route | flat (2D, illustrated finish), vector3d (library 3D parts, `L.lightScene3`), vork (GPU ensembles and Slang shaders; load `kits/vork/VORK_KIT.md`), blender (illustration-mode or photographic render; "photoreal" or "photographic" means the photographic one, step 0) | for a physical object, the route that suits the hero; say why in the Assumptions line (step 0) |
 | depth | draft, standard, full (table in step 3) | full (steps 1-11 of `reference/process.md`: two drafts and a choice, your own critique pass, your own cold read, the gate), also for a one-line request. Standard or draft only when the user names it |
 | review | own, independent | own: you do every check yourself, in one agent. independent: an independent critic (step 9) and blind readers (step 10) run as separate agents. Only when the user asks for it, for example "with an independent physics check" |
 | web | on, off | on: search the web freely for anything that helps the figure (other figures, layouts, styles, reference images, background on the subject), in any field. Never look for the figures of the paper you draw for. off: no web access, as in the benchmark |
+
+### Look Selection & 3D Backend Routing
+
+Pick one look before writing any code, state your choice, and load ONLY the matching kit documentation:
+
+- **`flat`** / **`in 3D` (Default):** Pure vector SVG/PDF via `foundation/`. Best for block diagrams, architectures, networks, and simple geometric extrusions.
+- **`vork` (`kits/vork/VORK_KIT.md`):** Use when the user asks to "render in vork", OR when a 3D scientific scene requires:
+  1. Large ensembles or lattices (>200 particles, magnetic spins, molecules, or agents).
+  2. Mathematical/physical GPU shaders (wave interference, potential fields, optical lattices, custom refraction/lensing).
+  3. Fast iterative 3D camera staging without complex CAD booleans.
+  4. Animated schematic figures (MP4/MOV) for slides.
+- **`blender` (`kits/blender/BLENDER_KIT.md`):** Use when the user asks to "render in Blender", OR when a 3D scene requires:
+  1. Constructive solid geometry (boolean cutaways, extruded microfluidic tubes, bevels, twisted helices).
+  2. Participating volumes or fog (laser beams in scattering media, gas clouds).
+  3. Multi-bounce `photoreal` glass or liquid caustics (Cycles).
 
 ## 0. Intake (every run)
 
@@ -76,3 +91,5 @@ The rules of each mode (what you may look at, the revise-scope diff) are in `ref
 | `reference/lib-api.md`, `reference/lib-<domain>.md` | The drawing library and the domain parts. |
 | `templates/spec-card.md` | The spec card. |
 | `foundation/` | The engine, the tools, the Blender kits and the demos. |
+| `kits/vork/` | vork scene builder, Slang field shaders, and `VORK_KIT.md`. Load it only for the vork route. |
+| `kits/blender/BLENDER_KIT.md` | Where the Blender route starts. The code stays in `foundation/blender/`. |
